@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafytrip.model.mapper.UserMapper">
+	
+	<resultMap type="user" id="userMap">
+		<result column="name" property="name"/>
+		<result column="id" property="id"/>
+		<result column="password" property="password"/>
+		<result column="user_code" property="userCode"/>
+	</resultMap>
+
+	<select id="selectUser" parameterType="user" resultMap="userMap">
+		select * 
+		from user
+		where id = #{id} and password = #{password}
+	</select>
+	
+	<insert id="insertUser" parameterType="user">
+		insert
+		into user(id, password, name, email)
+		values(#{id}, #{password}, #{name}, #{email})
+	</insert>
+	
+	<update id="updateUser" parameterType="user">
+		update user
+		set password = #{password}, name = #{name}, email = #{email}
+		where user_code = #{userCode}
+	</update>
+	
+	<select id="selectUserInfo" parameterType="string" resultMap="userMap">
+		select *
+		from user
+		where id=#{userId}
+	</select>
+		
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafytrip.model.mapper.PlanMapper">
+
+	<resultMap type="plan" id="planMap">
+		<result column="plan_code" property="planCode"/>
+		<result column="plan_startDate" property="startDate"/>
+		<result column="plan_endDate" property="endDate"/>
+		<result column="plan_title" property="title"/>
+		<result column="plan_content" property="content"/>
+		<result column="like_count" property="likeCount"/>
+	</resultMap>
+	
+	<resultMap type="planattraction" id="planattractionMap">
+		<result column="plan_code" property="planCode"/>
+		<result column="content_id" property="contentId"/>
+		<result column="plan_attraction_code" property="planAttractionCode"/>
+		<result column="sequence" property="sequence"/>
+		<result column="date" property="date"/>
+	</resultMap>
+	
+	<resultMap type="planuser" id="planuserMap">
+		<result column="plan_code" property="planCode"/>
+		<result column="user_code" property="userCode"/>
+	</resultMap>
+	
+	<insert id="insertNewPlan" parameterType="Plan" useGeneratedKeys="true" keyProperty="planCode" keyColumn="plan_code">
+		insert 
+		into plan(plan_startDate, plan_endDate, plan_title, plan_content, like_count, valid)
+		values(#{startDate}, #{endDate}, #{title}, #{content}, 0, true)
+	</insert>
+	
+	<insert id="insertNewUser" parameterType="planuser">
+		insert
+		into plan_user(plan_code, user_code)
+		values(#{planCode}, #{userCode})
+	</insert>
+	
+ 	<select id="selectMyPlan" parameterType="string" resultMap="planMap">
+		select p.plan_code, p.plan_startDate, p.plan_endDate, p.plan_title, p.plan_content, p.like_count
+		from plan as p
+		join plan_user
+		on p.plan_code = plan_user.plan_code
+		where plan_user.user_code = #{userCode} and p.valid = true;
+	</select> 
+	
+	<update id="deletePlan" parameterType="int">
+		update plan
+		set valid = false
+		where plan_code = #{planCode}
+	</update>
+	
+	<update id="updatePlan" parameterType="Plan">
+		update plan
+		set plan_startDate = #{startDate}, plan_endDate = #{endDate}, plan_title = #{title}, plan_content = #{content}
+		where plan_code = #{planCode}
+	</update>
+	
+	<insert id="insertPlanAttractions" parameterType="planattraction">
+		insert 
+		into plan_attraction(plan_code, content_id, sequence, date)
+		values (#{planCode}, #{contentId}, #{sequence}, #{date})
+	</insert>
+	
+	<delete id="deletePlanAttraction" parameterType="string">
+		delete
+		from plan_attraction
+		where plan_attraction_code = #{planAttractionCode}
+	</delete>
+	
+	<select id="selectPlanAttraction" parameterType="int" resultMap="planattractionMap">
+		select *
+		from plan_attraction
+		where plan_code = #{code}	
+	</select>
+	
+ 	<delete id="deleteUser" parameterType="PlanUser">
+ 		delete
+ 		from plan_user
+ 		where plan_code = #{planCode} and user_code = #{userCode}
+ 	</delete>
+ 	
+ 	<select id="selectUser" parameterType="int" resultMap="planuserMap">
+ 		select *
+ 		from plan_user
+ 		where plan_code = #{planCode}
+ 	</select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafytrip.model.mapper.AttractionMapper">
+
+
+	<resultMap type="attraction" id="attractionMap">
+		<result column="content_id" property="contentId" />
+		<result column="title" property="title" />
+		<result column="first_image" property="firstImage" />
+		<result column="overview" property="overview" />
+	</resultMap>
+	
+	<resultMap type="attraction" id="attractionListMap">
+		<result column="content_id" property="contentId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+		<result column="addr2" property="addr2" />
+		<result column="zipcode" property="zipcode" />
+		<result column="tel" property="tel" />
+		<result column="first_image" property="firstImage" />
+		<result column="first_image2" property="firstImage2" />
+		<result column="sido_code" property="sido" />
+		<result column="gugun_code" property="gugun" />
+		<result column="latitude" property="latitude" />
+		<result column="longitude" property="longitude" />
+	</resultMap>
+
+	<select id="selectAttractionByCategory" parameterType="int" resultMap="attractionMap">
+		select ai.content_id, ai.title, ai.first_image, ad.overview 
+		  from attraction_info ai 
+	inner join attraction_description ad 
+	       on ai.content_id = ad.content_id 
+		where first_image != '' 
+		  and first_image is not null 
+		  and content_type_id = #{categoryCode} 
+		order by rand() 
+		limit #{limit}
+	</select>
+	
+	<select id="selectAttractionDetail" parameterType="int" resultMap="attractionMap">
+		select ai.content_id, ai.title, ai.first_image, ad.overview
+		  from attraction_info ai
+    inner join attraction_description ad
+		    on ai.content_id = ad.content_id
+		 where ai.content_id = #{contentId} 
+		   and first_image != '' 
+		   and first_image is not null 	
+	</select>
+	
+	<resultMap id="sidoMap" type="sido">
+		<result column="sido_code" property="code" /> 
+		<result column="sido_name" property="name" /> 
+	</resultMap>
+	
+	<select id="selectSido" resultMap="sidoMap">
+		select sido_code, sido_name
+		  from sido order by sido_code
+	</select>
+
+	<resultMap id="gugunMap" type="gugun">
+		<result column="gugun_code" property="code" /> 
+		<result column="gugun_name" property="name" /> 
+	</resultMap>
+	<select id="selectGugun" parameterType="string" resultMap="gugunMap">
+	 	select * 
+	 	  from gugun 
+	 	 where sido_code = #{sidoCode} 
+	 	 order by gugun_code
+	</select>
+
+	<select id="selectAttractionList" parameterType="string" resultMap="attractionListMap">
+		select ai.content_id, ai.title, ai.addr1, ai.addr2, ai.zipcode, ai.tel, ai.first_image, ai.first_image2, ai.sido_code, ai.gugun_code, ai.latitude, ai.longitude, ai.mlevel
+		from attraction_info as ai
+		join gugun
+		on ai.gugun_code = gugun.gugun_code
+		join sido
+		on ai.sido_code = sido.sido_code where
+		<if test="sido != null">
+		sido.sido_name = #{sido} and
+		</if>
+		<if test="gugun != null">
+		gugun.gugun_name = #{gugun} and
+		</if>
+		<if test="keyword != null">
+    		ai.title LIKE CONCAT('%', #{keyword}, '%')
+    	</if>
+	</select>
+	
+	<insert id="insertMyPlace" parameterType="int">
+		insert into myplace(attraction_code, user_code)
+		values (#{attractionCode}, #{userCode})
+	</insert>
+	
+	<select id="selectByUserCode" parameterType="int" resultMap="attractionListMap">
+		select a.content_id, a.title, a.addr1, a.addr2, a.zipcode, a.tel, a.first_image, a.first_image2, a.sido_code, a.gugun_code, a.latitude, a.longitude
+		from myplace as m
+		join attraction_info as a
+		on m.attraction_code = a.content_id
+		where m.user_code = #{userCode}
+	</select>
+</mapper>
+
+
+
