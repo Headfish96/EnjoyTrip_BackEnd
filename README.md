@@ -66,6 +66,12 @@
   ![정보구조도 및 요구사항 명세.png](img/data1.png)
   ![정보구조도 및 요구사항 명세.png](img/data2.png)
 
+- 개인정보 수정
+  ![개인정보 수정.png](img/modify_personalinfo.png)
+
+- 개인정보 수정
+  ![개인정보 수정.png](img/data2.png)
+
 ---
 
 # 3. 프로젝트 구조
