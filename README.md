@@ -71,7 +71,7 @@
 
 - 개인정보 수정
   ![개인정보 수정.png](img/structure.png)
-
+  ![개인정보 수정.png](img/structure2.png)
 ---
 
 # 3. 프로젝트 구조
