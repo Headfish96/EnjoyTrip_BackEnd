@@ -63,9 +63,9 @@
 
 - 정보구조도 및 요구사항 명세
 
-  ![정보구조도 및 요구사항 명세.png](img/data_structure_01.png)
+  ![정보구조도 및 요구사항 명세.png](img/data1.png)
 
-  ![정보구조도 및 요구사항 명세.png](img/data_structure_02.png)
+  ![정보구조도 및 요구사항 명세.png](img/data2.png)
 
 - 로그인
   ![로그인.png](img/login.png)
