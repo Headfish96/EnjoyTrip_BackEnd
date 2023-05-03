@@ -62,16 +62,9 @@
 [정보구조도 및 요구사항 명세](https://www.notion.so/90b0b0df7d0f4d7fb0eb4d1e28a09fd6)
 
 - 정보구조도 및 요구사항 명세
+  ![정보구조도 및 요구사항 명세.png](img/structure.png)
+  ![정보구조도 및 요구사항 명세.png](img/structure2.png)
 
-  ![정보구조도 및 요구사항 명세.png](img/data1.png)
-  ![정보구조도 및 요구사항 명세.png](img/data2.png)
-
-- 개인정보 수정
-  ![개인정보 수정.png](img/modify_personalinfo.png)
-
-- 개인정보 수정
-  ![개인정보 수정.png](img/structure.png)
-  ![개인정보 수정.png](img/structure2.png)
 ---
 
 # 3. 프로젝트 구조
@@ -147,7 +140,7 @@ C:.
 
 ## b. ER-Diagram
 
-![ERDiagram.png](img/ERDiagram.png)
+![ERD.png](img/ERD.png)
 
 ---
 
