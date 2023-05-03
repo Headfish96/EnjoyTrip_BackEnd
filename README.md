@@ -70,7 +70,7 @@
   ![개인정보 수정.png](img/modify_personalinfo.png)
 
 - 개인정보 수정
-  ![개인정보 수정.png](img/data2.png)
+  ![개인정보 수정.png](img/structure.png)
 
 ---
 
