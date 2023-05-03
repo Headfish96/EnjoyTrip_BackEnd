@@ -51,7 +51,8 @@
 
 - 정보구조도 및 요구사항 명세
 
-  ![정보구조도 및 요구사항 명세.png](img/ERDiagram.png)
+  ![정보구조도 및 요구사항 명세.png](img/data_structure_01.png)
+  ![정보구조도 및 요구사항 명세.png](img/data_structure_02.png)
 
 ---
 
